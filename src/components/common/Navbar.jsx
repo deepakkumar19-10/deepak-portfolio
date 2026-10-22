@@ -9,8 +9,6 @@ const NAV_ITEMS = [
   { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Live Demo', href: '#lab' },
-  { label: 'Resume', href: '#resume' },
   { label: 'Contact', href: '#contact' }
 ];
 
@@ -28,7 +26,7 @@ export default function Navbar() {
       setScrollProgress(Number(scroll));
 
       // ScrollSpy active link detection
-      const sections = ['about', 'skills', 'experience', 'projects', 'lab', 'resume', 'contact'];
+      const sections = ['about', 'skills', 'experience', 'projects', 'contact'];
       const current = sections.find((sec) => {
         const el = document.getElementById(sec);
         if (el) {

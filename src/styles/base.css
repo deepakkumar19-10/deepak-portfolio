@@ -242,6 +242,14 @@ ul, ol {
   background: radial-gradient(circle, var(--accent-indigo) 0%, transparent 70%);
 }
 
+/* Spinner Utility */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spin {
+  animation: spin 1s linear infinite;
+}
+
 /* Print Styles */
 @media print {
   .no-print {

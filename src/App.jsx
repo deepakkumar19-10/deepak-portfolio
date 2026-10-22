@@ -10,9 +10,7 @@ import HeroSection from './components/hero/HeroSection';
 import AboutSection from './components/about/AboutSection';
 import JourneyTimeline from './components/journey/JourneyTimeline';
 import ProjectsSection from './components/projects/ProjectsSection';
-import LivePlayground from './components/playground/LivePlayground';
 import SkillsMatrix from './components/skills/SkillsMatrix';
-import ResumeSection from './components/resume/ResumeSection';
 import ContactSection from './components/contact/ContactSection';
 import RecruiterPitch from './components/contact/RecruiterPitch';
 
@@ -46,13 +44,7 @@ export default function App() {
         {/* 5. Featured Projects Showcase */}
         <ProjectsSection />
 
-        {/* 6. Interactive Component Lab */}
-        <LivePlayground onShowToast={triggerToast} />
-
-        {/* 7. Interactive Resume View */}
-        <ResumeSection onShowToast={triggerToast} />
-
-        {/* 8. Contact & Developer Profiles */}
+        {/* 6. Contact & Developer Profiles */}
         <ContactSection onShowToast={triggerToast} />
       </main>
 

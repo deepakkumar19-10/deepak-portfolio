@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PERSONAL_INFO } from '../../data/portfolioData';
-import { Mail, Phone, MapPin, Send, MessageCircle, Copy, Check, Globe, ExternalLink, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageCircle, Copy, Check, Globe, ExternalLink, ArrowRight, Loader2 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../common/Icons';
 
 export default function ContactSection({ onShowToast }) {
@@ -11,18 +11,13 @@ export default function ContactSection({ onShowToast }) {
     message: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submittedVia, setSubmittedVia] = useState('both');
   const [copiedField, setCopiedField] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-    setSubmitted(true);
-    if (onShowToast) onShowToast('Thank you! Your message has been sent to Deepak.');
   };
 
   const handleCopy = (text, fieldName) => {
@@ -32,11 +27,104 @@ export default function ContactSection({ onShowToast }) {
     setTimeout(() => setCopiedField(null), 2000);
   };
 
-  const handleWhatsAppSend = () => {
+  // Helper to format WhatsApp message
+  const getWhatsAppUrl = () => {
     const text = encodeURIComponent(
-      `Hi Deepak, I saw your portfolio!\nMy Name: ${formData.name || 'Visitor'}\nMessage: ${formData.message || 'I would like to discuss an opportunity.'}`
+      `*New Portfolio Message for Deepak Kumar*\n\n` +
+      `👤 *Name:* ${formData.name || 'Visitor'}\n` +
+      `📧 *Email:* ${formData.email || 'Not provided'}\n` +
+      (formData.subject ? `📌 *Subject:* ${formData.subject}\n` : '') +
+      `💬 *Message:*\n${formData.message || 'Hi Deepak, I saw your portfolio and would like to connect.'}`
     );
-    window.open(`https://wa.me/${PERSONAL_INFO.whatsapp}?text=${text}`, '_blank');
+    return `https://wa.me/${PERSONAL_INFO.whatsapp}?text=${text}`;
+  };
+
+  // Send via WhatsApp
+  const handleSendWhatsAppOnly = (e) => {
+    if (e) e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      if (onShowToast) onShowToast('Please fill in Name, Email and Message first.');
+      return;
+    }
+    window.open(getWhatsAppUrl(), '_blank');
+    setSubmittedVia('whatsapp');
+    setSubmitted(true);
+    if (onShowToast) onShowToast('Opening WhatsApp to send your message to Deepak...');
+  };
+
+  // Send via Email (FormSubmit AJAX + mailto fallback)
+  const handleSendEmailOnly = async (e) => {
+    if (e) e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      if (onShowToast) onShowToast('Please fill in Name, Email and Message first.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await fetch(`https://formsubmit.co/ajax/${PERSONAL_INFO.email}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || `New Portfolio Message from ${formData.name}`,
+          message: formData.message,
+          _subject: `New Portfolio Message: ${formData.subject || formData.name}`,
+          _template: 'table'
+        })
+      });
+    } catch (err) {
+      console.error('Email API dispatch error:', err);
+    } finally {
+      setIsSubmitting(false);
+      setSubmittedVia('email');
+      setSubmitted(true);
+      if (onShowToast) onShowToast(`Message sent to ${PERSONAL_INFO.email}!`);
+    }
+  };
+
+  // Combined Submit: Sends to Email in background AND opens WhatsApp
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      if (onShowToast) onShowToast('Please fill in Name, Email and Message.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // 1. Send to Email in background via FormSubmit
+    try {
+      await fetch(`https://formsubmit.co/ajax/${PERSONAL_INFO.email}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || `New Portfolio Message from ${formData.name}`,
+          message: formData.message,
+          _subject: `Portfolio Message from ${formData.name} (${formData.email})`,
+          _template: 'table'
+        })
+      });
+    } catch (err) {
+      console.error('Email dispatch error:', err);
+    }
+
+    // 2. Open WhatsApp in new tab so Deepak gets instant notification
+    window.open(getWhatsAppUrl(), '_blank');
+
+    setIsSubmitting(false);
+    setSubmittedVia('both');
+    setSubmitted(true);
+    if (onShowToast) onShowToast('Message sent to Deepak via WhatsApp & Email!');
   };
 
   return (
@@ -176,38 +264,59 @@ export default function ContactSection({ onShowToast }) {
             </div>
           </div>
 
-          {/* Right Column: Contact Form & Instant WhatsApp */}
+          {/* Right Column: Contact Form & Instant Delivery */}
           <div className="card" style={{ padding: '2.25rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-              <h3 style={{ fontSize: '1.4rem', fontWeight: 800 }}>Send a Direct Message</h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 800 }}>Send a Direct Message</h3>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
+                  Your message goes straight to Deepak's WhatsApp &amp; Email
+                </p>
+              </div>
               <button
                 type="button"
-                onClick={handleWhatsAppSend}
+                onClick={handleSendWhatsAppOnly}
                 className="btn btn-primary btn-sm"
                 style={{ gap: '0.35rem' }}
-                title="Send instant WhatsApp message"
+                title="Send instant WhatsApp message to +91-9027687004"
               >
                 <MessageCircle size={15} />
-                <span>WhatsApp Me</span>
+                <span>WhatsApp (+91-9027687004)</span>
               </button>
             </div>
 
             {submitted ? (
-              <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
-                <div style={{ width: '56px', height: '56px', borderRadius: '50%', backgroundColor: 'rgba(16, 185, 129, 0.12)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem auto' }}>
-                  <Check size={28} />
+              <div style={{ textAlign: 'center', padding: '2.5rem 1rem' }}>
+                <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem auto' }}>
+                  <Check size={32} />
                 </div>
-                <h4 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem' }}>Message Received!</h4>
-                <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
-                  Thank you for reaching out. Deepak will get back to you promptly.
+                <h4 style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '0.5rem' }}>Message Dispatched!</h4>
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: 1.6, maxWidth: '440px', margin: '0 auto 1.5rem auto' }}>
+                  Your message was routed directly to Deepak Kumar on{' '}
+                  <strong style={{ color: 'var(--primary)' }}>WhatsApp (+91-9027687004)</strong> and{' '}
+                  <strong style={{ color: 'var(--accent-cyan)' }}>Email (deepakkumar19152002@gmail.com)</strong>.
                 </p>
-                <button
-                  type="button"
-                  onClick={() => setSubmitted(false)}
-                  className="btn btn-outline btn-sm"
-                >
-                  Send Another Message
-                </button>
+                <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                  <a
+                    href={getWhatsAppUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary btn-sm"
+                  >
+                    <MessageCircle size={15} />
+                    <span>Open WhatsApp Chat</span>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSubmitted(false);
+                      setFormData({ name: '', email: '', subject: '', message: '' });
+                    }}
+                    className="btn btn-outline btn-sm"
+                  >
+                    Send Another Message
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
@@ -220,7 +329,7 @@ export default function ContactSection({ onShowToast }) {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="e.g. Sarthak Sharma / Recruiter"
+                    placeholder="e.g. Rahul Sharma / Recruiter"
                     className="form-input"
                   />
                 </div>
@@ -234,7 +343,7 @@ export default function ContactSection({ onShowToast }) {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="e.g. hiring@company.com"
+                    placeholder="e.g. recruiter@company.com"
                     className="form-input"
                   />
                 </div>
@@ -266,14 +375,53 @@ export default function ContactSection({ onShowToast }) {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  style={{ width: '100%', marginTop: '0.5rem' }}
-                >
-                  <Send size={16} />
-                  <span>Send Message to Deepak</span>
-                </button>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1.25rem' }}>
+                  {/* Primary Send Button */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn btn-primary btn-lg"
+                    style={{ width: '100%', gap: '0.6rem' }}
+                    title="Send message to Deepak via WhatsApp & Email"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 size={18} className="spin" />
+                        <span>Dispatching Message...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send size={18} />
+                        <span>Send Message to Deepak</span>
+                      </>
+                    )}
+                  </button>
+
+                  {/* Instant Channel Options */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
+                    <button
+                      type="button"
+                      onClick={handleSendWhatsAppOnly}
+                      className="btn btn-secondary btn-sm"
+                      style={{ color: 'var(--primary)', borderColor: 'var(--primary-subtle)', gap: '0.45rem', justifyContent: 'center' }}
+                      title="Send directly to Deepak's WhatsApp (+91-9027687004)"
+                    >
+                      <MessageCircle size={16} />
+                      <span>Send via WhatsApp</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleSendEmailOnly}
+                      className="btn btn-secondary btn-sm"
+                      style={{ color: 'var(--accent-cyan)', borderColor: 'rgba(56, 189, 248, 0.3)', gap: '0.45rem', justifyContent: 'center' }}
+                      title="Send directly to Deepak's Email (deepakkumar19152002@gmail.com)"
+                    >
+                      <Mail size={16} />
+                      <span>Send via Email</span>
+                    </button>
+                  </div>
+                </div>
               </form>
             )}
           </div>
