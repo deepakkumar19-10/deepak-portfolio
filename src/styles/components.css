@@ -388,3 +388,31 @@
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+
+@media (max-width: 640px) {
+  .toast-container {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+  .toast {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+  .modal-overlay {
+    padding: 0.75rem;
+  }
+  .modal-content {
+    max-height: 94vh;
+  }
+  .modal-header {
+    padding: 1rem 1.25rem;
+  }
+  .modal-body {
+    padding: 1.25rem 1rem;
+  }
+}

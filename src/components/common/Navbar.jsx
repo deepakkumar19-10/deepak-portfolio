@@ -149,7 +149,7 @@ export default function Navbar() {
                   {item.label}
                 </a>
               ))}
-              <div style={{ paddingTop: '1rem', borderTop: '1px solid var(--border-color)', display: 'flex', gap: '0.75rem' }}>
+              <div style={{ paddingTop: '1rem', borderTop: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 <a
                   href={RESUME_URL}
                   target="_blank"
@@ -160,6 +160,28 @@ export default function Navbar() {
                   <FileDown size={15} />
                   <span>Download Resume PDF</span>
                 </a>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <a
+                    href={GITHUB_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary btn-sm"
+                    style={{ flex: 1 }}
+                  >
+                    <GithubIcon size={15} />
+                    <span>GitHub</span>
+                  </a>
+                  <a
+                    href={LINKEDIN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary btn-sm"
+                    style={{ flex: 1 }}
+                  >
+                    <LinkedinIcon size={15} />
+                    <span>LinkedIn</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
