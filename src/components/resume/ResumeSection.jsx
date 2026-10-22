@@ -1,8 +1,7 @@
 import React from 'react';
 import { RESUME_DATA } from '../../data/resumeData';
 import { RESUME_URL } from '../../data/portfolioData';
-import { Printer, FileDown, Mail, Phone, MapPin, Globe, GraduationCap, Briefcase, Award, FolderGit2 } from 'lucide-react';
-import { LinkedinIcon } from '../common/Icons';
+import { Printer, FileDown } from 'lucide-react';
 
 export default function ResumeSection() {
   const handlePrint = () => {
@@ -12,11 +11,12 @@ export default function ResumeSection() {
   return (
     <section className="section" id="resume">
       <div className="container">
+        {/* Section Header */}
         <div className="section-header no-print">
-          <span className="section-tag">Curriculum Vitae</span>
-          <h2 className="section-title">Verified Resume &amp; Credentials</h2>
+          <span className="section-tag">Resume</span>
+          <h2 className="section-title">My Resume</h2>
           <p className="section-desc">
-            An ATS-optimized, verified breakdown of my MERN stack experience, projects, education, and technical competencies.
+            You can view my resume below, or download and print it as a PDF.
           </p>
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', marginTop: '1.5rem', flexWrap: 'wrap' }}>
             <a
@@ -27,114 +27,93 @@ export default function ResumeSection() {
               aria-label="Download Deepak Kumar Resume PDF"
             >
               <FileDown size={15} />
-              <span>Download Resume PDF</span>
+              <span>Download PDF</span>
             </a>
 
             <button type="button" onClick={handlePrint} className="btn btn-outline btn-sm">
               <Printer size={15} />
-              <span>Print / Save as PDF</span>
+              <span>Print Resume</span>
             </button>
           </div>
         </div>
 
-        {/* Printable Sheet */}
+        {/* Printable Resume Sheet */}
         <div className="resume-sheet">
-          {/* Resume Header */}
-          <div className="resume-header">
-            <div>
-              <h1 style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.2rem' }}>
-                {RESUME_DATA.name}
-              </h1>
-              <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--primary)', marginBottom: '0.75rem' }}>
-                {RESUME_DATA.role}
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <MapPin size={14} color="var(--primary)" />
-                  {RESUME_DATA.location}
-                </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <Mail size={14} color="var(--primary)" />
-                  <a href={`mailto:${RESUME_DATA.email}`}>{RESUME_DATA.email}</a>
-                </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <Phone size={14} color="var(--primary)" />
-                  {RESUME_DATA.phone}
-                </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <LinkedinIcon size={14} color="var(--primary)" />
-                  <a href={`https://${RESUME_DATA.linkedin}`} target="_blank" rel="noopener noreferrer">
-                    {RESUME_DATA.linkedin}
-                  </a>
-                </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <Globe size={14} color="var(--primary)" />
-                  <a href={`https://${RESUME_DATA.website}`} target="_blank" rel="noopener noreferrer">
-                    {RESUME_DATA.website}
-                  </a>
-                </span>
-              </div>
+          {/* Real Resume Header Matching Original Document */}
+          <div className="resume-sheet-header">
+            <h1 className="resume-sheet-name">{RESUME_DATA.name}</h1>
+            <div className="resume-sheet-contact-line">
+              <span>{RESUME_DATA.location}</span>
+              <span className="resume-sep">|</span>
+              <a href={`tel:${RESUME_DATA.phone}`}>{RESUME_DATA.phone}</a>
+              <span className="resume-sep">|</span>
+              <a href={`mailto:${RESUME_DATA.email}`}>{RESUME_DATA.email}</a>
+            </div>
+            <div className="resume-sheet-links-line">
+              <a href={`https://${RESUME_DATA.linkedin}`} target="_blank" rel="noopener noreferrer">
+                {RESUME_DATA.linkedin}
+              </a>
+              <span className="resume-sep">|</span>
+              <a href={`https://${RESUME_DATA.github}`} target="_blank" rel="noopener noreferrer">
+                {RESUME_DATA.github}
+              </a>
+              <span className="resume-sep">|</span>
+              <a href={`https://${RESUME_DATA.website}`} target="_blank" rel="noopener noreferrer">
+                {RESUME_DATA.website}
+              </a>
             </div>
           </div>
 
           {/* Professional Summary */}
-          <div style={{ marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '1.05rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--primary)', marginBottom: '0.6rem', fontWeight: 800 }}>
-              Professional Summary
-            </h3>
-            <p style={{ fontSize: '0.95rem', lineHeight: 1.7, color: 'var(--text-secondary)' }}>
+          <div className="resume-block">
+            <h2 className="resume-block-title">Professional Summary</h2>
+            <p className="resume-summary-text">
               {RESUME_DATA.summary}
             </p>
           </div>
 
           {/* Technical Skills */}
-          <div style={{ marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '1.05rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--primary)', marginBottom: '0.85rem', fontWeight: 800 }}>
-              Technical Skills
-            </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem', fontSize: '0.9rem' }}>
-              <div>
-                <strong>Languages:</strong> {RESUME_DATA.skills.languages?.join(', ')}
+          <div className="resume-block">
+            <h2 className="resume-block-title">Technical Skills</h2>
+            <div className="resume-skills-list">
+              <div className="resume-skill-row">
+                <strong>Languages: </strong>
+                <span>{RESUME_DATA.skills.languages.join(', ')}</span>
               </div>
-              <div>
-                <strong>Frontend:</strong> {RESUME_DATA.skills.frontend?.join(', ')}
+              <div className="resume-skill-row">
+                <strong>Frameworks &amp; Libraries: </strong>
+                <span>{RESUME_DATA.skills.frameworks.join(', ')}</span>
               </div>
-              <div>
-                <strong>Backend:</strong> {RESUME_DATA.skills.backend?.join(', ')}
+              <div className="resume-skill-row">
+                <strong>State Management &amp; Data Fetching: </strong>
+                <span>{RESUME_DATA.skills.stateManagement.join(', ')}</span>
               </div>
-              <div>
-                <strong>Databases:</strong> {RESUME_DATA.skills.databases?.join(', ')}
+              <div className="resume-skill-row">
+                <strong>Styling &amp; UI Design: </strong>
+                <span>{RESUME_DATA.skills.styling.join(', ')}</span>
               </div>
-              <div>
-                <strong>Tools:</strong> {RESUME_DATA.skills.tools?.join(', ')}
+              <div className="resume-skill-row">
+                <strong>Developer Tools: </strong>
+                <span>{RESUME_DATA.skills.developerTools.join(', ')}</span>
               </div>
-              {RESUME_DATA.skills.additional && (
-                <div>
-                  <strong>Additional:</strong> {RESUME_DATA.skills.additional?.join(', ')}
-                </div>
-              )}
             </div>
           </div>
 
-          {/* Work Experience */}
-          <div style={{ marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '1.05rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--primary)', marginBottom: '1.25rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <Briefcase size={16} />
-              <span>Professional Experience</span>
-            </h3>
-
+          {/* Professional Experience */}
+          <div className="resume-block">
+            <h2 className="resume-block-title">Professional Experience</h2>
             {RESUME_DATA.experience.map((exp, idx) => (
-              <div key={idx} style={{ marginBottom: '1.5rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: 800 }}>{exp.role}</h4>
-                  <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontWeight: 600 }}>{exp.period}</span>
+              <div key={idx} className="resume-exp-item">
+                <div className="resume-item-header">
+                  <div>
+                    <h3 className="resume-item-title">{exp.role}</h3>
+                    <div className="resume-item-company">{exp.company}</div>
+                  </div>
+                  <div className="resume-item-period">{exp.period}</div>
                 </div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 600, marginBottom: '0.6rem' }}>
-                  {exp.company} • {exp.location}
-                </div>
-                <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                  {exp.highlights.map((hl, hIdx) => (
-                    <li key={hIdx} style={{ listStyleType: 'disc' }}>{hl}</li>
+                <ul className="resume-highlights-list">
+                  {exp.highlights.map((h, hIdx) => (
+                    <li key={hIdx}>– {h}</li>
                   ))}
                 </ul>
               </div>
@@ -142,65 +121,47 @@ export default function ResumeSection() {
           </div>
 
           {/* Projects */}
-          {RESUME_DATA.projects && (
-            <div style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.05rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--primary)', marginBottom: '1.25rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <FolderGit2 size={16} />
-                <span>Featured Projects</span>
-              </h3>
-
-              {RESUME_DATA.projects.map((proj, idx) => (
-                <div key={idx} style={{ marginBottom: '1.25rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap' }}>
-                    <h4 style={{ fontSize: '0.98rem', fontWeight: 800 }}>{proj.title}</h4>
-                    {proj.period && (
-                      <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontWeight: 600 }}>{proj.period}</span>
-                    )}
+          <div className="resume-block">
+            <h2 className="resume-block-title">Projects</h2>
+            {RESUME_DATA.projects.map((proj, idx) => (
+              <div key={idx} className="resume-exp-item">
+                <div className="resume-item-header">
+                  <div>
+                    <h3 className="resume-item-title">{proj.title}</h3>
+                    <div className="resume-item-tech">{proj.techStack}</div>
                   </div>
-                  <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
-                    <strong>Tech Stack:</strong> {proj.techStack}
+                  <div className="resume-item-period" style={{ color: 'var(--primary)', fontWeight: 700 }}>
+                    {proj.type}
                   </div>
-                  <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                    {proj.highlights.map((hl, hIdx) => (
-                      <li key={hIdx} style={{ listStyleType: 'disc' }}>{hl}</li>
-                    ))}
-                  </ul>
                 </div>
-              ))}
-            </div>
-          )}
-
-          {/* Education */}
-          <div style={{ marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '1.05rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--primary)', marginBottom: '1rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <GraduationCap size={16} />
-              <span>Education</span>
-            </h3>
-
-            {RESUME_DATA.education.map((edu, idx) => (
-              <div key={idx} style={{ marginBottom: '1rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap' }}>
-                  <h4 style={{ fontSize: '0.95rem', fontWeight: 800 }}>{edu.degree}</h4>
-                  <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontWeight: 600 }}>{edu.period}</span>
-                </div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                  {edu.institution}
-                </div>
+                <ul className="resume-highlights-list">
+                  {proj.highlights.map((h, hIdx) => (
+                    <li key={hIdx}>– {h}</li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
 
-          {/* Certifications */}
-          <div>
-            <h3 style={{ fontSize: '1.05rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--primary)', marginBottom: '0.75rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <Award size={16} />
-              <span>Certification</span>
-            </h3>
-            <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.88rem', color: 'var(--text-secondary)' }}>
-              {RESUME_DATA.certifications.map((cert, idx) => (
-                <li key={idx} style={{ listStyleType: 'disc' }}>{cert}</li>
+          {/* Education & Certification */}
+          <div className="resume-block">
+            <h2 className="resume-block-title">Education &amp; Certification</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+              {RESUME_DATA.education.map((edu, idx) => (
+                <div key={idx} className="resume-item-header">
+                  <div>
+                    <div style={{ fontWeight: 800, fontSize: '0.98rem' }}>{edu.degree}</div>
+                    <div style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>{edu.institution}</div>
+                  </div>
+                  <div className="resume-item-period">{edu.period}</div>
+                </div>
               ))}
-            </ul>
+              <div style={{ paddingTop: '0.65rem', borderTop: '1px dashed var(--border-color)', marginTop: '0.25rem' }}>
+                <div style={{ fontWeight: 700, fontSize: '0.92rem' }}>
+                  {RESUME_DATA.certification[0]}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

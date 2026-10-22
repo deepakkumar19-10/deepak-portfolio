@@ -9,7 +9,17 @@ export default function ProjectModal({ isOpen, onClose, project }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={project.title}>
       <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem' }}>
+        {project.image && (
+          <div style={{ width: '100%', height: '220px', borderRadius: 'var(--radius-lg)', overflow: 'hidden', marginBottom: '1.25rem', border: '1px solid var(--border-color)' }}>
+            <img
+              src={project.image}
+              alt={project.title}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </div>
+        )}
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
           <span className="badge badge-status">{project.category}</span>
           {project.badge && (
             <span className="badge badge-tech">{project.badge}</span>
@@ -40,7 +50,7 @@ export default function ProjectModal({ isOpen, onClose, project }) {
         <div style={{ marginBottom: '2rem' }}>
           <h4 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
             <CheckCircle2 size={18} color="var(--primary)" />
-            <span>Key Engineering Highlights</span>
+            <span>Key Features</span>
           </h4>
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
             {(project.features || []).map((feat, idx) => (
@@ -55,7 +65,7 @@ export default function ProjectModal({ isOpen, onClose, project }) {
         {/* Tech Stack Pills */}
         <div style={{ marginBottom: '2rem' }}>
           <h4 style={{ fontSize: '0.85rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700, marginBottom: '0.65rem' }}>
-            Technology Stack &amp; Libraries
+            Technologies Used
           </h4>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
             {(project.techStack || []).map((t, idx) => (
@@ -74,10 +84,10 @@ export default function ProjectModal({ isOpen, onClose, project }) {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary btn-sm"
-              aria-label={`Launch live demo for ${project.title}`}
+              aria-label={`Visit live website for ${project.title}`}
             >
               <ExternalLink size={16} />
-              <span>Launch Live Demo</span>
+              <span>Visit Website</span>
             </a>
           )}
 
@@ -89,7 +99,7 @@ export default function ProjectModal({ isOpen, onClose, project }) {
             aria-label={`View source code on GitHub for ${project.title}`}
           >
             <GithubIcon size={16} />
-            <span>View Source Code</span>
+            <span>View on GitHub</span>
           </a>
 
           <button

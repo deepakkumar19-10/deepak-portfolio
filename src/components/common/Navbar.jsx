@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ThemeToggle from './ThemeToggle';
-import { Menu, X, FileDown } from 'lucide-react';
+import { Menu, X, FileDown, Smartphone } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { GITHUB_URL, LINKEDIN_URL, RESUME_URL } from '../../data/portfolioData';
 
@@ -9,7 +9,8 @@ const NAV_ITEMS = [
   { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Lab', href: '#lab' },
+  { label: 'Live Demo', href: '#lab' },
+  { label: 'Resume', href: '#resume' },
   { label: 'Contact', href: '#contact' }
 ];
 
@@ -27,12 +28,12 @@ export default function Navbar() {
       setScrollProgress(Number(scroll));
 
       // ScrollSpy active link detection
-      const sections = ['about', 'skills', 'experience', 'projects', 'lab', 'contact'];
+      const sections = ['about', 'skills', 'experience', 'projects', 'lab', 'resume', 'contact'];
       const current = sections.find((sec) => {
         const el = document.getElementById(sec);
         if (el) {
           const rect = el.getBoundingClientRect();
-          return rect.top <= 220 && rect.bottom >= 150;
+          return rect.top <= 240 && rect.bottom >= 140;
         }
         return false;
       });
@@ -54,7 +55,7 @@ export default function Navbar() {
           left: 0,
           width: `${scrollProgress}%`,
           height: '3px',
-          backgroundColor: 'var(--primary)',
+          background: 'var(--accent-gradient)',
           zIndex: 2001,
           transition: 'width 0.1s ease'
         }}
@@ -85,7 +86,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* RIGHT: GitHub, LinkedIn, ThemeToggle & Visually Strong Resume Button */}
+          {/* RIGHT: Actions */}
           <div className="nav-actions">
             <a
               href={GITHUB_URL}
@@ -111,7 +112,6 @@ export default function Navbar() {
 
             <ThemeToggle />
 
-            {/* Standout Primary Action: Resume Button */}
             <a
               href={RESUME_URL}
               target="_blank"
@@ -119,16 +119,16 @@ export default function Navbar() {
               className="btn btn-primary btn-sm nav-resume-btn"
               aria-label="Download Deepak Kumar Resume PDF"
             >
-              <FileDown size={15} />
+              <FileDown size={14} />
               <span>Resume</span>
             </a>
 
-            {/* Mobile Menu Toggle Button */}
+            {/* Mobile Hamburger Toggle */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="btn-icon mobile-menu-btn"
-              aria-label="Toggle navigation menu"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -137,81 +137,30 @@ export default function Navbar() {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div
-            className="card-glass mobile-nav-drawer"
-            style={{
-              position: 'absolute',
-              top: '100%',
-              left: 0,
-              right: 0,
-              padding: '1.5rem',
-              borderBottom: '1px solid var(--border-color)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem',
-              boxShadow: 'var(--shadow-lg)'
-            }}
-          >
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="mobile-nav-link"
-                style={{
-                  fontSize: '1.05rem',
-                  fontWeight: 700,
-                  color: activeSection === item.href.substring(1) ? 'var(--primary)' : 'var(--text-secondary)',
-                  padding: '0.6rem 0',
-                  borderBottom: '1px solid var(--border-subtle)',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}
-              >
-                <span>{item.label}</span>
-                {activeSection === item.href.substring(1) && (
-                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--primary)' }} />
-                )}
-              </a>
-            ))}
-
-            {/* Mobile Social Links & Direct Resume Download */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.5rem' }}>
-              <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <div className="mobile-drawer">
+            <div className="mobile-nav-links">
+              {NAV_ITEMS.map((item) => (
                 <a
-                  href={GITHUB_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-icon"
-                  aria-label="GitHub Profile"
-                  title="GitHub Profile"
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`mobile-nav-link ${activeSection === item.href.substring(1) ? 'active' : ''}`}
                 >
-                  <GithubIcon size={18} />
+                  {item.label}
                 </a>
+              ))}
+              <div style={{ paddingTop: '1rem', borderTop: '1px solid var(--border-color)', display: 'flex', gap: '0.75rem' }}>
                 <a
-                  href={LINKEDIN_URL}
+                  href={RESUME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-icon"
-                  aria-label="LinkedIn Profile"
-                  title="LinkedIn Profile"
+                  className="btn btn-primary btn-sm"
+                  style={{ width: '100%' }}
                 >
-                  <LinkedinIcon size={18} />
+                  <FileDown size={15} />
+                  <span>Download Resume PDF</span>
                 </a>
               </div>
-
-              <a
-                href={RESUME_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMobileMenuOpen(false)}
-                className="btn btn-primary btn-sm"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
-              >
-                <FileDown size={15} />
-                <span>Resume PDF</span>
-              </a>
             </div>
           </div>
         )}

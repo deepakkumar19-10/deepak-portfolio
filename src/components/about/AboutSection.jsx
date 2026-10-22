@@ -1,154 +1,178 @@
 import React from 'react';
-import { CORE_VALUES, ENGINEERING_CAPABILITIES, LIVE_WEBSITE_URL } from '../../data/portfolioData';
-import { Code2, Layers, Database, ExternalLink, CheckCircle2, Award, Briefcase, GraduationCap } from 'lucide-react';
-
-const CAPABILITY_ICONS = {
-  frontend: Code2,
-  backend: Layers,
-  database: Database
-};
+import { PERSONAL_INFO, CORE_VALUES, LIVE_WEBSITE_URL } from '../../data/portfolioData';
+import { Smartphone, Layers, Globe, Server, GraduationCap, Briefcase, Award, CheckCircle2, ExternalLink } from 'lucide-react';
 
 export default function AboutSection() {
   return (
     <section className="section section-alt" id="about">
-      <div className="container">
+      {/* Background Ambient Glow */}
+      <div className="ambient-glow ambient-glow-indigo" style={{ top: '20%', left: '5%', width: '400px', height: '400px' }} />
+
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="section-header">
-          <span className="section-tag">About Deepak</span>
-          <h2 className="section-title">Where Full-Stack Engineering Meets Clean Architecture</h2>
+          <span className="section-tag">About</span>
+          <h2 className="section-title">About Me</h2>
           <p className="section-desc">
-            Building digital platforms that combine responsive React frontends with robust Express APIs and reliable databases.
+            A quick overview of my background, the tools I use, and what I build.
           </p>
         </div>
 
-        <div className="about-grid">
-          {/* Left Column: Portrait Frame with Quick Facts */}
+        {/* Bio Card with Photo */}
+        <div className="about-intro-grid" style={{ marginBottom: '3rem' }}>
           <div className="about-visual">
             <div className="about-img-frame">
               <img
                 src="/images/deepak-standing.jpg"
-                alt="Deepak Kumar — MERN Stack Developer"
+                alt="Deepak Kumar — Mobile & Frontend Developer"
                 loading="lazy"
               />
             </div>
-
-            {/* Quick Credentials Card */}
-            <div className="card" style={{ marginTop: '1.25rem', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ width: '34px', height: '34px', borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--primary-light)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <GraduationCap size={18} />
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 800 }}>MCA (GLA University)</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Master of Computer Applications (2023–2025)</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ width: '34px', height: '34px', borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--primary-light)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <Briefcase size={18} />
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 800 }}>MERN Stack Intern</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>CrowdApps Technology (May 2026 – Present)</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ width: '34px', height: '34px', borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--primary-light)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <Award size={18} />
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 800 }}>Creator: Divya Braj</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Live Production Web Platform (divyabraj.com)</div>
-                </div>
-              </div>
-            </div>
           </div>
 
-          {/* Right Column: Bio Narrative & Philosophy */}
-          <div className="about-content">
-            <h3>Turning complex requirements into seamless, full-stack web applications.</h3>
-            
-            <p>
-              I am a <strong>MERN Stack Developer</strong> based in Mathura, Uttar Pradesh, with an MCA from <strong>GLA University</strong>. I specialize in building complete web applications from initial database schema modeling and REST API design to modular, responsive React.js user interfaces.
+          <div className="about-bio-card card">
+            <div className="badge badge-tech" style={{ alignSelf: 'flex-start', marginBottom: '0.75rem' }}>
+              Specialization: React Native &amp; React.js
+            </div>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.85rem', lineHeight: 1.3 }}>
+              Building practical mobile and web applications.
+            </h3>
+            <p style={{ fontSize: '0.98rem', lineHeight: 1.7, marginBottom: '1rem' }}>
+              I am a <strong>Mobile &amp; Frontend Developer</strong> from Mathura, Uttar Pradesh, with an MCA from <strong>GLA University</strong>. I specialize in building cross-platform mobile apps with <strong>React Native</strong> and modern web apps with <strong>React.js</strong>.
             </p>
-
-            <p>
-              Currently, I work as a <strong>MERN Stack Intern</strong> at CrowdApps Technology, developing full-stack features, reusable UI components, authentication flows, and database connectivity with MongoDB and Express.js.
-            </p>
-
-            <p>
-              One of my flagship achievements is architecting and deploying{' '}
+            <p style={{ fontSize: '0.98rem', lineHeight: 1.7, marginBottom: '1.25rem' }}>
+              Currently at <strong>CrowdApps Technology</strong>, I work on mobile features, connect REST APIs with Axios, and use Redux Toolkit for clean state management. I also built and launched{' '}
               <a
                 href={LIVE_WEBSITE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ fontWeight: 800, textDecoration: 'underline', color: 'var(--primary)', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}
+                style={{ fontWeight: 800, color: 'var(--primary)', textDecoration: 'underline', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}
               >
-                <span>Braj Darshan (divyabraj.com)</span>
+                <span>DivyaBraj (divyabraj.com)</span>
                 <ExternalLink size={13} />
               </a>
-              {' '}— a live production cultural and tourism platform covering temples, yatras, panchang, events, and cultural heritage across the Braj region.
+              , a live tourism platform for the Braj region.
             </p>
 
-            {/* Core Values Summary */}
-            <div className="values-grid">
-              {CORE_VALUES.map((val, idx) => (
-                <div key={idx} className="value-item">
-                  <h5>
-                    <CheckCircle2 size={16} color="var(--primary)" />
-                    <span>{val.title}</span>
-                  </h5>
-                  <p>{val.desc}</p>
-                </div>
-              ))}
+            {/* Quick Info Badges */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.85rem', marginTop: 'auto', paddingTop: '1.25rem', borderTop: '1px solid var(--border-color)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <GraduationCap size={18} color="var(--primary)" />
+                <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>MCA (GLA University)</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <Briefcase size={18} color="var(--accent-cyan)" />
+                <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>CrowdApps Technology</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <Award size={18} color="var(--accent-amber)" />
+                <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>CCC (Grade A)</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* 3-Pillar Engineering Capabilities (Inspired by reference site's capability breakdown) */}
-        <div style={{ marginTop: '4.5rem' }}>
-          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <span className="section-tag" style={{ backgroundColor: 'var(--bg-card)' }}>What I Bring to the Table</span>
-            <h3 style={{ fontSize: '1.85rem', fontWeight: 800, marginTop: '0.5rem' }}>
-              Core Engineering Focus &amp; Capabilities
-            </h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', maxWidth: '600px', margin: '0.5rem auto 0 auto' }}>
-              How I approach building reliable, scalable software across the entire web stack.
+        {/* Bento Grid — Clean & Simple */}
+        <div className="bento-grid">
+          {/* Bento Box 1: Mobile App Engineering */}
+          <div className="bento-card bento-span-2">
+            <div className="bento-icon-wrapper" style={{ backgroundColor: 'var(--primary-light)', color: 'var(--primary)' }}>
+              <Smartphone size={24} />
+            </div>
+            <div className="bento-badge">Mobile Apps</div>
+            <h3 className="bento-title">Cross-Platform React Native</h3>
+            <p className="bento-desc">
+              Building smooth apps for Android and iOS using React Native. Experienced in Drawer and Stack navigation, local storage with AsyncStorage, and debugging in Android Studio.
             </p>
+            <div className="bento-tags">
+              {['React Native', 'React Navigation', 'NativeWind', 'AsyncStorage', 'Android Studio'].map((t) => (
+                <span key={t} className="badge badge-tech">{t}</span>
+              ))}
+            </div>
+            <div className="bento-metric-pill">
+              <span className="bento-metric-val" style={{ color: 'var(--primary)' }}>React Native</span>
+              <span className="bento-metric-lbl">Android &amp; iOS</span>
+            </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.75rem' }}>
-            {ENGINEERING_CAPABILITIES.map((cap) => {
-              const Icon = CAPABILITY_ICONS[cap.id] || Code2;
-              return (
-                <div key={cap.id} className="card card-hover" style={{ display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ width: '48px', height: '48px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--primary-light)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
-                    <Icon size={24} />
-                  </div>
+          {/* Bento Box 2: Live Platform */}
+          <div className="bento-card bento-span-1">
+            <div className="bento-icon-wrapper" style={{ backgroundColor: 'rgba(251, 191, 36, 0.12)', color: 'var(--accent-amber)' }}>
+              <Globe size={24} />
+            </div>
+            <div className="bento-badge">Live Platform</div>
+            <h3 className="bento-title">DivyaBraj</h3>
+            <p className="bento-desc">
+              A live dual-platform platform (React Native mobile app and React.js web portal) for tourism across Mathura and Vrindavan.
+            </p>
+            <a
+              href={LIVE_WEBSITE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline btn-sm"
+              style={{ marginTop: 'auto', alignSelf: 'flex-start' }}
+            >
+              <span>Visit divyabraj.com</span>
+              <ExternalLink size={13} />
+            </a>
+            <div className="bento-metric-pill" style={{ marginTop: '1rem' }}>
+              <span className="bento-metric-val" style={{ color: 'var(--accent-amber)' }}>divyabraj.com</span>
+              <span className="bento-metric-lbl">Live in Production</span>
+            </div>
+          </div>
 
-                  <h4 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.35rem' }}>
-                    {cap.title}
-                  </h4>
+          {/* Bento Box 3: Network & IT Experience */}
+          <div className="bento-card bento-span-1">
+            <div className="bento-icon-wrapper" style={{ backgroundColor: 'rgba(129, 140, 248, 0.12)', color: 'var(--accent-indigo)' }}>
+              <Server size={24} />
+            </div>
+            <div className="bento-badge">IT Background</div>
+            <h3 className="bento-title">Hardware &amp; Networks</h3>
+            <p className="bento-desc">
+              Managed enterprise LAN/Wi-Fi setup, routers, switches, and system configurations for 50+ workstations at S.J.P Global Limited.
+            </p>
+            <div className="bento-metric-pill" style={{ marginTop: 'auto' }}>
+              <span className="bento-metric-val" style={{ color: 'var(--accent-indigo)' }}>50+ Workstations</span>
+              <span className="bento-metric-lbl">IT &amp; Hardware</span>
+            </div>
+          </div>
 
-                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--primary)', marginBottom: '0.85rem' }}>
-                    {cap.tagline}
-                  </div>
+          {/* Bento Box 4: State Management & APIs */}
+          <div className="bento-card bento-span-2">
+            <div className="bento-icon-wrapper" style={{ backgroundColor: 'rgba(56, 189, 248, 0.12)', color: 'var(--accent-cyan)' }}>
+              <Layers size={24} />
+            </div>
+            <div className="bento-badge">State &amp; APIs</div>
+            <h3 className="bento-title">Redux Toolkit &amp; REST APIs</h3>
+            <p className="bento-desc">
+              Using Redux Toolkit to organize global state and prevent unnecessary component re-renders. Integrated 15+ REST API endpoints with Axios, handling errors and loading states.
+            </p>
+            <div className="bento-tags">
+              {['Redux Toolkit', 'Axios', 'REST APIs', 'AsyncStorage', 'Tailwind CSS'].map((t) => (
+                <span key={t} className="badge badge-tech">{t}</span>
+              ))}
+            </div>
+            <div className="bento-metric-pill">
+              <span className="bento-metric-val" style={{ color: 'var(--accent-cyan)' }}>Redux Toolkit</span>
+              <span className="bento-metric-lbl">State Management</span>
+            </div>
+          </div>
+        </div>
 
-                  <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '1.5rem', flexGrow: 1 }}>
-                    {cap.description}
-                  </p>
-
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
-                    {cap.badges.map((b, bIdx) => (
-                      <span key={bIdx} className="badge badge-tech" style={{ fontSize: '0.75rem' }}>
-                        {b}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
+        {/* Core Principles */}
+        <div style={{ marginTop: '3.5rem' }}>
+          <h4 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1.5rem', textAlign: 'center' }}>
+            What I Focus On
+          </h4>
+          <div className="values-grid">
+            {CORE_VALUES.map((val, idx) => (
+              <div key={idx} className="value-item card">
+                <h5>
+                  <CheckCircle2 size={18} color="var(--primary)" style={{ flexShrink: 0 }} />
+                  <span>{val.title}</span>
+                </h5>
+                <p>{val.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

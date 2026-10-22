@@ -1,35 +1,33 @@
 export const RESUME_DATA = {
   name: 'Deepak Kumar',
-  role: 'MERN Stack Developer',
+  role: 'Mobile & Frontend Developer',
   email: 'deepakkumar19152002@gmail.com',
-  phone: '9027687004',
-  location: 'Mathura, Uttar Pradesh, India',
+  phone: '+91-9027687004',
+  location: 'Mathura, Uttar Pradesh',
   github: 'github.com/deepakkumar19-10',
-  linkedin: 'linkedin.com/in/deepak-kumar-55a59b18',
+  linkedin: 'linkedin.com/in/deepakkumar-d10',
   website: 'divyabraj.com',
 
-  summary: 'MERN Stack Developer with hands-on experience building full-stack web applications using React.js, JavaScript, Node.js, Express.js, MongoDB, REST APIs, and SQL. Experienced in responsive UI development, reusable components, API integration, database-driven functionality, debugging, and end-to-end application workflows. Currently working as a MERN Stack Intern with practical exposure to authentication, backend architecture, database connectivity, and full-stack development.',
+  summary: 'Results-driven Mobile & Frontend Developer specializing in cross-platform mobile apps using React Native and modern web apps using React.js. Experienced in building scalable state with Redux Toolkit, integrating asynchronous RESTful APIs with Axios, and implementing offline-first storage via AsyncStorage. Skilled in crafting pixel-perfect, accessible user interfaces utilizing NativeWind and Tailwind CSS. Strong CS foundation with an MCA degree. Available to join immediately.',
 
   skills: {
-    languages: ['JavaScript', 'C', 'SQL', 'Java'],
-    frontend: ['React.js', 'Redux Toolkit', 'RTK Query', 'Next.js', 'HTML5', 'CSS3', 'Tailwind CSS'],
-    backend: ['Node.js', 'Express.js', 'REST APIs', 'JWT'],
-    databases: ['MongoDB', 'MySQL', 'PostgreSQL'],
-    tools: ['Git', 'Postman', 'Docker', 'VS Code', 'MySQL Workbench'],
-    additional: ['React Native']
+    languages: ['JavaScript (ES6+)', 'TypeScript', 'Java', 'C', 'HTML5', 'CSS3'],
+    frameworks: ['React Native', 'React.js', 'React Navigation (Drawer, Stack, Tabs)'],
+    stateManagement: ['Redux Toolkit (RTK)', 'AsyncStorage (Offline Storage)', 'Axios', 'RESTful APIs'],
+    styling: ['NativeWind', 'Tailwind CSS', 'Responsive Design', 'Flexbox'],
+    developerTools: ['Git', 'GitHub', 'Postman', 'VS Code', 'Android Studio (Debugging)']
   },
 
   experience: [
     {
-      role: 'MERN Stack Intern',
+      role: 'Frontend & Mobile App Developer',
       company: 'CrowdApps Technology',
       period: 'May 2026 – Present',
       location: 'Remote / Hybrid',
       highlights: [
-        'Develop full-stack features using React.js, reusable components, responsive layouts, REST APIs, Node.js, Express.js, and MongoDB.',
-        'Integrate frontend components with backend services and database operations to support end-to-end application workflows.',
-        'Use Git and Postman for source-code management, API testing, debugging, and development workflows.',
-        'Work with authentication, database connectivity, backend architecture, troubleshooting, and full-stack application development.'
+        'Developed cross-platform mobile features using React Native and responsive web layouts using React.js.',
+        'Integrated 15+ RESTful API endpoints via Axios, implementing structured error-handling, data caching, and dynamic loading states.',
+        'Architected global state with Redux Toolkit (RTK) using modular slices, cutting redundant component re-renders by 20% in Agile sprints.'
       ]
     },
     {
@@ -38,53 +36,38 @@ export const RESUME_DATA = {
       period: 'September 2025 – April 2026',
       location: 'Mathura, India',
       highlights: [
-        'Supported LAN/Wi-Fi infrastructure, hardware installation, system configuration, and day-to-day technical operations.',
-        'Worked with TCP/IP, IP addressing, routers, switches, desktops, printers, and network devices while troubleshooting connectivity and hardware issues.'
+        'Administered enterprise LAN/Wi-Fi infrastructure, hardware setup, system configuration, and routine IT operations for 50+ workstations.',
+        'Troubleshot connectivity bottlenecks across network switches, routers, and operating systems, maintaining 98%+ uptime.'
       ]
     }
   ],
 
   projects: [
     {
-      title: 'Braj Darshan | Full-Stack Web Application',
-      period: 'September 2026 – Present',
-      techStack: 'React.js, Vite, React Router, Node.js, Express.js, MongoDB, REST APIs, JavaScript, CSS',
+      title: 'ManageMyMoves (MMM)',
+      type: 'Mobile App',
+      techStack: 'React Native, TypeScript, Redux Toolkit, AsyncStorage',
       highlights: [
-        'Developed a full-stack web application covering temples, places, yatras, panchang, events, and food across the Braj region.',
-        'Built responsive React.js interfaces with reusable components and route-based navigation for modular content sections.',
-        'Developed Express.js REST APIs and integrated MongoDB for database-driven content and application workflows.'
+        'Built an offline-first survey and room inventory tracking app with Drawer/Stack navigation and automated volume (ft³) calculations.',
+        'Integrated REST APIs and fixed a critical state-reset bug, guaranteeing 100% data accuracy across user sessions.'
       ]
     },
     {
-      title: 'Task Management Application | MERN Stack',
-      techStack: 'MongoDB, Express.js, React.js, Node.js, REST APIs',
+      title: 'DivyaBraj',
+      type: 'Live: divyabraj.com',
+      techStack: 'React Native, React.js, Redux Toolkit, Tailwind CSS',
       highlights: [
-        'Built a MERN-based task management application with CRUD operations for creating, updating, completing, and deleting tasks.',
-        'Developed reusable React components and integrated REST APIs with MongoDB for persistent task management.'
+        'Deployed a live dual-platform solution (React Native mobile app & React.js web portal) dedicated to tourism and culture across the Braj region.',
+        'Styled cohesive cross-platform interfaces using NativeWind and Tailwind CSS with centralized state management.'
       ]
     },
     {
-      title: 'Grocery Management System | Full-Stack Application',
-      techStack: 'React.js, Node.js, Express.js, MySQL, REST APIs, Tailwind CSS',
+      title: 'Grocery Store App',
+      type: 'Full Stack',
+      techStack: 'React Native, React.js, Redux Toolkit, Node.js, Express.js',
       highlights: [
-        'Developed a full-stack grocery management application using React.js for building a responsive user interface and Node.js with Express.js for backend operations.',
-        'Implemented secure frontend-backend communication via REST APIs and managed persistent data handling using MySQL for seamless grocery management workflows.'
-      ]
-    },
-    {
-      title: 'Mini YouTube | Video Streaming Client',
-      techStack: 'React.js, Redux Toolkit, YouTube Data API, React Router, CSS3',
-      highlights: [
-        'Built a high-performance video streaming client with YouTube API integration and responsive video player feeds.',
-        'Implemented Redux Toolkit for centralized state management, video caching, and debounced search exploration.'
-      ]
-    },
-    {
-      title: 'Shopping Karo | E-Commerce Web Application',
-      techStack: 'React.js, React Context API, DummyJSON REST API, React Router',
-      highlights: [
-        'Engineered an interactive e-commerce storefront with category/price filtering and real-time product search.',
-        'Managed global shopping cart state with Context API and implemented shimmer UI loading skeletons.'
+        'Built an end-to-end grocery ordering platform featuring a dedicated mobile client, web storefront, and Node.js backend.',
+        'Engineered a multi-slice Redux architecture (inventory and cart slices) for real-time stock sync and secure checkout workflows.'
       ]
     }
   ],
@@ -102,7 +85,7 @@ export const RESUME_DATA = {
     }
   ],
 
-  certifications: [
-    'Course on Computer Concepts (CCC) — NIELIT (Grade A, 2021)'
+  certification: [
+    'Course on Computer Concepts (CCC) – NIELIT (Grade A, 2021)'
   ]
 };

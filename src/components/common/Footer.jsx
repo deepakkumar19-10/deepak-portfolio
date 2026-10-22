@@ -1,6 +1,6 @@
 import React from 'react';
 import { PERSONAL_INFO, LIVE_WEBSITE_URL, RESUME_URL } from '../../data/portfolioData';
-import { ArrowUp, Mail, MessageCircle, Globe, FileDown } from 'lucide-react';
+import { ArrowUp, Mail, MessageCircle, Globe, FileDown, Smartphone } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 export default function Footer() {
@@ -11,7 +11,7 @@ export default function Footer() {
   return (
     <footer className="footer no-print">
       <div className="container">
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem', marginBottom: '2.5rem' }}>
           <div className="brand-logo" style={{ fontSize: '1.6rem' }}>
             <div className="brand-badge" style={{ width: '42px', height: '42px', fontSize: '1.2rem' }}>
               DK
@@ -19,13 +19,13 @@ export default function Footer() {
             <span>Deepak Kumar</span>
           </div>
 
-          <p style={{ maxWidth: '560px', color: 'var(--text-muted)', fontSize: '0.95rem', margin: '0 auto', lineHeight: 1.6 }}>
-            MERN Stack Developer specializing in React.js, Node.js, Express.js, MongoDB, REST APIs, and SQL. Creator of live platform{' '}
+          <p style={{ maxWidth: '580px', color: 'var(--text-muted)', fontSize: '0.96rem', margin: '0 auto', textAlign: 'center', lineHeight: 1.65 }}>
+            Mobile &amp; Frontend Developer specializing in <strong>React Native</strong> cross-platform mobile apps and modern <strong>React.js</strong> web applications. Creator of live dual-platform platform{' '}
             <a
               href={LIVE_WEBSITE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ fontWeight: 700, color: 'var(--primary)', textDecoration: 'underline' }}
+              style={{ fontWeight: 800, color: 'var(--primary)', textDecoration: 'underline' }}
             >
               divyabraj.com
             </a>.
@@ -58,8 +58,8 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-icon"
-              aria-label="Visit Live Website: Divya Braj"
-              title="Visit Live Website: Divya Braj"
+              aria-label="Visit Live Website: DivyaBraj"
+              title="Visit Live Website: DivyaBraj"
               style={{ color: 'var(--primary)' }}
             >
               <Globe size={18} />
@@ -97,7 +97,7 @@ export default function Footer() {
 
         <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
           <div>
-            &copy; {new Date().getFullYear()} Deepak Kumar. MERN Stack Developer | Built with React.js &amp; Pure Modular CSS.
+            &copy; {new Date().getFullYear()} Deepak Kumar • Mobile &amp; Frontend Developer
           </div>
 
           <button

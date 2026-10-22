@@ -19,8 +19,8 @@ export default function Modal({ isOpen, onClose, title, children }) {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button
           type="button"
           onClick={onClose}
@@ -31,12 +31,12 @@ export default function Modal({ isOpen, onClose, title, children }) {
         </button>
 
         {title && (
-          <div style={{ padding: '1.5rem 2rem', borderBottom: '1px solid var(--border-color)' }}>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800 }}>{title}</h3>
+          <div className="modal-header">
+            <h3>{title}</h3>
           </div>
         )}
 
-        <div style={{ padding: '2rem' }}>
+        <div className="modal-body">
           {children}
         </div>
       </div>

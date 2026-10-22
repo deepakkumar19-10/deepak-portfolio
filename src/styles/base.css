@@ -1,5 +1,6 @@
 /* ==========================================================================
    BASE RESET & GLOBAL TYPOGRAPHY
+   Inspired by Sarthak Sharma's Insane AI Portfolio Aesthetic
    ========================================================================== */
 
 *,
@@ -24,11 +25,33 @@ body {
   background-color: var(--bg-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Background Subtle Dot-Grid Pattern */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="light"] body::before {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+}
+
+.portfolio-app {
+  position: relative;
+  z-index: 1;
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
   color: var(--text-primary);
   font-weight: 800;
   line-height: 1.25;
@@ -42,7 +65,7 @@ p {
 a {
   color: var(--primary);
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 a:hover {
@@ -71,9 +94,9 @@ ul, ol {
   outline-offset: 3px;
 }
 
-/* Custom Scrollbar */
+/* Custom Sleek Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 9px;
 }
 
 ::-webkit-scrollbar-track {
@@ -83,6 +106,7 @@ ul, ol {
 ::-webkit-scrollbar-thumb {
   background: var(--border-hover);
   border-radius: var(--radius-full);
+  border: 2px solid var(--bg-body);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -99,99 +123,104 @@ ul, ol {
   padding-right: 1.5rem;
 }
 
-.section,
-section[id] {
-  padding: 6rem 0;
+/* Section Wrapper Base */
+.section {
+  padding: 4.25rem 0;
   position: relative;
-  scroll-margin-top: calc(var(--navbar-height) + 1.25rem);
 }
 
 .section-alt {
-  background-color: var(--bg-subtle);
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.015) 50%, transparent 100%);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-/* Section Header Component */
+[data-theme="dark"] .section-alt {
+  background: linear-gradient(180deg, rgba(14, 21, 36, 0.2) 0%, rgba(14, 21, 36, 0.5) 50%, rgba(14, 21, 36, 0.2) 100%);
+}
+
 .section-header {
   text-align: center;
-  max-width: 680px;
-  margin: 0 auto 3.5rem auto;
+  max-width: 780px;
+  margin: 0 auto 2.25rem auto;
 }
 
 .section-tag {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background-color: var(--primary-light);
-  color: var(--primary);
-  padding: 0.35rem 0.9rem;
+  padding: 0.3rem 0.8rem;
   border-radius: var(--radius-full);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-bottom: 0.85rem;
+  background: var(--primary-light);
+  color: var(--primary);
   border: 1px solid var(--primary-subtle);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.65rem;
 }
 
 .section-title {
-  font-size: clamp(2rem, 3.8vw, 2.75rem);
-  margin-bottom: 0.85rem;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 0.65rem;
+  letter-spacing: -0.03em;
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 2.5rem;
+  }
 }
 
 .section-desc {
   font-size: 1.05rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   line-height: 1.65;
 }
 
-/* Keyframe Animations */
-@keyframes floatAnimation {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+/* Shimmer & Gradient Text */
+.gradient-text {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 15px var(--primary-glow); }
-  50% { box-shadow: 0 0 35px var(--primary-glow); }
+/* Ambient Radial Glow Orb */
+.ambient-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+.ambient-glow-emerald {
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
 }
 
-/* Printable Resume Mode */
+.ambient-glow-cyan {
+  background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%);
+}
+
+.ambient-glow-indigo {
+  background: radial-gradient(circle, var(--accent-indigo) 0%, transparent 70%);
+}
+
+/* Print Styles */
 @media print {
-  body {
-    background-color: #ffffff !important;
-    color: #000000 !important;
-  }
-
-  .no-print,
-  .navbar,
-  .hero-section,
-  .about-section,
-  .journey-section,
-  .playground-section,
-  .projects-section,
-  .skills-section,
-  .contact-section,
-  .footer,
-  .btn,
-  .theme-toggle {
+  .no-print {
     display: none !important;
   }
-
-  .resume-section {
-    padding: 0 !important;
+  body {
     background: #ffffff !important;
+    color: #000000 !important;
   }
-
-  .resume-sheet {
-    box-shadow: none !important;
-    border: none !important;
-    padding: 0 !important;
-    width: 100% !important;
+  .container {
     max-width: 100% !important;
+    padding: 0 !important;
   }
 }

@@ -5,7 +5,7 @@ export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('deepak_theme');
     if (saved) return saved === 'dark';
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return true; // Default to sleek modern dark theme like Sarthak Sharma's portfolio
   });
 
   useEffect(() => {
@@ -18,11 +18,11 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={() => setIsDark(!isDark)}
-      className="btn-icon"
+      className="btn-icon theme-toggle-btn"
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
     >
-      {isDark ? <Sun size={18} /> : <Moon size={18} />}
+      {isDark ? <Sun size={18} className="theme-icon-sun" /> : <Moon size={18} className="theme-icon-moon" />}
     </button>
   );
 }

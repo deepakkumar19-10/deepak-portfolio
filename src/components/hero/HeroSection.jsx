@@ -1,40 +1,48 @@
 import React from 'react';
 import { PERSONAL_INFO, STATS, GITHUB_URL, LINKEDIN_URL, LIVE_WEBSITE_URL, RESUME_URL } from '../../data/portfolioData';
-import { ArrowRight, FileDown, Globe, Zap, Server } from 'lucide-react';
+import { ArrowRight, FileDown, Globe, Zap } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../common/Icons';
 
 export default function HeroSection({ onOpenPitch }) {
   return (
     <section className="hero-section" id="hero">
-      <div className="container">
+      {/* Background Ambient Glows */}
+      <div className="ambient-glow ambient-glow-emerald" style={{ top: '-100px', left: '15%', width: '450px', height: '450px' }} />
+      <div className="ambient-glow ambient-glow-cyan" style={{ top: '100px', right: '10%', width: '400px', height: '400px' }} />
+
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="hero-grid">
-          {/* Left Column: Introduction & CTAs */}
+          {/* Left Column: Introduction & Actions */}
           <div className="hero-content">
-            <div className="badge badge-status" style={{ marginBottom: '1.25rem' }}>
+            {/* Status Pill */}
+            <div className="badge badge-status" style={{ marginBottom: '0.75rem' }}>
               <span className="status-dot" />
-              <span>Available for Full-time &amp; Remote Roles</span>
+              <span>Available to Join Immediately • Mathura, UP</span>
             </div>
 
+            {/* Simple, Punchy Headline */}
             <h1 className="hero-title">
-              Building <span className="highlight">Scalable Full-Stack MERN</span> &amp; Database-Driven Web Applications.
+              Building Clean &amp; Fast <span className="gradient-text">Mobile &amp; Web Apps</span>
             </h1>
 
+            {/* Clear, Natural Subtitle */}
             <p className="hero-subtitle">
-              Hi, I'm <strong>{PERSONAL_INFO.name}</strong> — a <strong>MERN Stack Developer</strong> based in Mathura, India. I engineer high-performance React.js frontends, scalable Node.js/Express REST APIs, and production-tested database architectures. Creator of live platform <strong>Divya Braj</strong>.
+              Hi, I'm <strong>{PERSONAL_INFO.name}</strong>, a <strong>Mobile &amp; Frontend Developer</strong>. I build cross-platform mobile apps with <strong>React Native</strong> and modern web apps with <strong>React.js</strong>. Experienced in Redux Toolkit, REST APIs with Axios, and offline storage with AsyncStorage. Creator of <strong>divyabraj.com</strong>.
             </p>
 
-            {/* Quick Tech Highlights Badge Row */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginBottom: '1.75rem' }}>
-              {['React.js', 'Node.js', 'Express.js', 'MongoDB', 'MySQL', 'REST APIs', 'Tailwind CSS'].map((tech) => (
-                <span key={tech} className="badge badge-tech" style={{ padding: '0.3rem 0.7rem', fontSize: '0.78rem' }}>
+            {/* Tech Stack Pills */}
+            <div className="hero-tech-pills">
+              {['React Native', 'React.js', 'TypeScript', 'Redux Toolkit', 'AsyncStorage', 'NativeWind', 'Tailwind CSS', 'Axios', 'Android Studio'].map((tech) => (
+                <span key={tech} className="badge badge-tech">
                   {tech}
                 </span>
               ))}
             </div>
 
-            <div className="hero-actions" style={{ flexWrap: 'wrap', gap: '0.85rem' }}>
+            {/* Action Buttons */}
+            <div className="hero-actions">
               <a href="#projects" className="btn btn-primary btn-lg">
-                <span>Explore Projects</span>
+                <span>View Projects</span>
                 <ArrowRight size={18} />
               </a>
 
@@ -54,30 +62,27 @@ export default function HeroSection({ onOpenPitch }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-secondary btn-lg"
-                aria-label="Visit Live Production Website: Divya Braj"
-                title="Visit Live Production Website: Divya Braj"
-                style={{ borderColor: 'var(--primary)', color: 'var(--primary)' }}
+                aria-label="Visit Live Website: DivyaBraj"
+                title="Visit Live Website: DivyaBraj"
               >
                 <Globe size={18} />
-                <span>Live Platform</span>
+                <span>Live Website</span>
               </a>
 
               <button
                 type="button"
                 onClick={onOpenPitch}
                 className="btn btn-secondary btn-lg"
-                title="30-Second Recruiter Pitch"
+                title="30-Second Summary"
               >
-                <Zap size={18} />
-                <span>Quick Pitch</span>
+                <Zap size={18} color="var(--primary)" />
+                <span>Quick Summary</span>
               </button>
             </div>
 
-            {/* Direct Social Links Bar */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid var(--border-subtle)' }}>
-              <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Connect:
-              </span>
+            {/* Social Links */}
+            <div className="hero-socials-bar">
+              <span className="hero-socials-label">Connect:</span>
               <a
                 href={GITHUB_URL}
                 target="_blank"
@@ -85,7 +90,6 @@ export default function HeroSection({ onOpenPitch }) {
                 className="btn-icon"
                 aria-label="GitHub Profile"
                 title="GitHub Profile"
-                style={{ width: '38px', height: '38px' }}
               >
                 <GithubIcon size={18} />
               </a>
@@ -96,7 +100,6 @@ export default function HeroSection({ onOpenPitch }) {
                 className="btn-icon"
                 aria-label="LinkedIn Profile"
                 title="LinkedIn Profile"
-                style={{ width: '38px', height: '38px' }}
               >
                 <LinkedinIcon size={18} />
               </a>
@@ -104,43 +107,35 @@ export default function HeroSection({ onOpenPitch }) {
                 href={LIVE_WEBSITE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--primary)', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', marginLeft: '0.5rem' }}
+                className="hero-live-link"
               >
                 <span>divyabraj.com</span>
                 <ArrowRight size={14} />
               </a>
             </div>
 
-            {/* Quick Metrics Bar */}
+            {/* Clean KPI Metrics Row */}
             <div className="hero-stats-row">
               {STATS.map((stat, idx) => (
                 <div key={idx} className="stat-item">
-                  <h4>{stat.value}</h4>
-                  <p>{stat.label}</p>
+                  <div className="stat-top-row">
+                    <span className="stat-badge">{stat.badge}</span>
+                  </div>
+                  <h4 className="stat-value">{stat.value}</h4>
+                  <p className="stat-label">{stat.label}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right Column: Hero Portrait Frame */}
+          {/* Right Column: Clean Portrait Card */}
           <div className="hero-visual">
             <div className="portrait-wrapper">
               <img
                 src="/images/deepak-hero.jpg"
-                alt="Deepak Kumar — MERN Stack Developer"
+                alt="Deepak Kumar — Mobile & Frontend Developer"
                 className="portrait-img"
               />
-
-              {/* Floating Pill Badges */}
-              <div className="floating-badge">
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'var(--primary-light)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Server size={20} />
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.9rem', fontWeight: 800 }}>MERN Stack Specialist</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>React • Node • Express • Mongo • SQL</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

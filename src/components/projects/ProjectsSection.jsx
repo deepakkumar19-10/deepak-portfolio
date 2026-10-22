@@ -3,7 +3,7 @@ import { PROJECTS } from '../../data/portfolioData';
 import ProjectCard from './ProjectCard';
 import ProjectModal from './ProjectModal';
 
-const CATEGORIES = ['All', 'Featured / Live', 'MERN Stack', 'Full-Stack', 'Frontend & APIs'];
+const CATEGORIES = ['All', 'Mobile Apps', 'Live Platform', 'Full Stack'];
 
 export default function ProjectsSection() {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -11,10 +11,15 @@ export default function ProjectsSection() {
 
   const filteredProjects = PROJECTS.filter((p) => {
     if (selectedCategory === 'All') return true;
-    if (selectedCategory === 'Featured / Live') return p.featured || p.demoLink;
-    if (selectedCategory === 'MERN Stack') return p.category === 'MERN Stack';
-    if (selectedCategory === 'Full-Stack') return p.category === 'Full-Stack' || p.category === 'MERN Stack';
-    if (selectedCategory === 'Frontend & APIs') return p.category === 'Frontend & APIs';
+    if (selectedCategory === 'Mobile Apps') {
+      return p.category.includes('Mobile') || p.techStack.includes('React Native');
+    }
+    if (selectedCategory === 'Live Platform') {
+      return p.category.includes('Live') || Boolean(p.demoLink);
+    }
+    if (selectedCategory === 'Full Stack') {
+      return p.category.includes('Full') || p.category.includes('Stack');
+    }
     return true;
   });
 
@@ -22,14 +27,14 @@ export default function ProjectsSection() {
     <section className="section" id="projects">
       <div className="container">
         <div className="section-header">
-          <span className="section-tag">Featured Work</span>
-          <h2 className="section-title">Production &amp; Full-Stack Projects</h2>
+          <span className="section-tag">Projects</span>
+          <h2 className="section-title">Featured Projects</h2>
           <p className="section-desc">
-            Explore real-world software applications built with React.js, Node.js, Express, MongoDB, REST APIs, and SQL.
+            Real-world mobile apps and web platforms I have built using React Native and React.js.
           </p>
         </div>
 
-        {/* Filter Pills */}
+        {/* Filter Pills Bar */}
         <div className="projects-filter-bar">
           {CATEGORIES.map((cat) => (
             <button
@@ -56,7 +61,7 @@ export default function ProjectsSection() {
 
         {/* Project Case Study Modal */}
         <ProjectModal
-          isOpen={!!activeModalProject}
+          isOpen={Boolean(activeModalProject)}
           onClose={() => setActiveModalProject(null)}
           project={activeModalProject}
         />
