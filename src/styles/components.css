@@ -76,6 +76,35 @@
   transform: translateY(-2px);
 }
 
+/* Glowing Pulsating Hire Me CTA Button */
+.btn-hire-me {
+  background: linear-gradient(135deg, #10b981 0%, #06b6d4 50%, #3b82f6 100%);
+  color: #ffffff !important;
+  font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4), 0 4px 14px rgba(6, 182, 212, 0.3);
+  animation: hireMePulse 2.4s infinite alternate ease-in-out;
+  letter-spacing: 0.02em;
+}
+
+[data-theme="dark"] .btn-hire-me {
+  color: #ffffff !important;
+}
+
+.btn-hire-me:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 32px rgba(16, 185, 129, 0.7), 0 6px 20px rgba(6, 182, 212, 0.5);
+}
+
+@keyframes hireMePulse {
+  0% {
+    box-shadow: 0 0 14px rgba(16, 185, 129, 0.35), 0 4px 12px rgba(6, 182, 212, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 26px rgba(16, 185, 129, 0.75), 0 6px 20px rgba(6, 182, 212, 0.55);
+  }
+}
+
 .btn-lg {
   padding: 0.95rem 1.75rem;
   font-size: 1.02rem;

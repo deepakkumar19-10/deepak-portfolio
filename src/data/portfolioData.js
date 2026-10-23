@@ -25,12 +25,12 @@ export const PERSONAL_INFO = {
   elevatorPitch: 'I am a Mobile & Frontend Developer specializing in React Native and React.js. At CrowdApps Technology, I built cross-platform mobile features, integrated 15+ REST APIs with Axios, and managed app state with Redux Toolkit. I also created DivyaBraj (divyabraj.com), a live tourism website. Available to join immediately.'
 };
 
-// High-impact metrics matching Deepak's real resume experience
+// High-impact role & stack metrics (Clean, minimal, no truncated subtext)
 export const STATS = [
-  { value: 'React Native', label: 'Cross-Platform Mobile & Web', badge: 'Core Stack' },
-  { value: '15+ APIs', label: 'Integrated with Axios', badge: 'REST APIs' },
-  { value: '20% Boost', label: 'Faster UI via Redux RTK', badge: 'State & Perf' },
-  { value: 'divyabraj.com', label: 'Live Tourism Website', badge: 'Live App' }
+  { value: 'Frontend & Mobile App Developer', badge: 'Primary Role' },
+  { value: '15+ REST APIs', badge: 'API Integration' },
+  { value: '20% Perf Boost', badge: 'Redux RTK' },
+  { value: 'divyabraj.com', badge: 'Live Production' }
 ];
 
 export const DEVELOPER_JOURNEY = [
@@ -75,54 +75,54 @@ export const DEVELOPER_JOURNEY = [
 export const PROJECTS = [
   {
     id: 'divyabraj',
-    title: 'DivyaBraj — Tourism & Culture Platform',
+    title: 'DivyaBraj (divyabraj.com) — Live Web Platform',
     category: 'Live Platform',
     featured: true,
     tier: 'flagship',
-    badge: 'LIVE WEBSITE',
-    tagline: 'Live dual-platform solution (React Native mobile app & React.js web portal) for tourism and culture across the Braj region.',
+    badge: 'LIVE WEB PLATFORM',
+    tagline: 'Production-ready tourism & cultural platform live at divyabraj.com, built with React.js, Tailwind CSS, REST APIs, and centralized Redux state.',
     emoji: '🛕',
     image: '/images/projects/divyabraj-live.jpg',
-    description: 'DivyaBraj is a live project for travelers and pilgrims visiting Mathura, Vrindavan, and the Braj region. It includes a React Native mobile app and a React.js website live at divyabraj.com, with temple timings, yatra routes, panchang calendar, and local cultural information.',
-    techStack: ['React Native', 'React.js', 'Redux Toolkit', 'Tailwind CSS', 'NativeWind', 'Axios', 'REST APIs'],
+    description: 'DivyaBraj is a full-featured live production platform serving tourists and pilgrims visiting Mathura, Vrindavan, and the Braj circuit. Features real-time temple aarti & darshan schedules, interactive yatra pilgrimage routes, Hindu panchang calendar, and local tourism guides.',
+    techStack: ['React.js', 'React Native', 'Redux Toolkit', 'Tailwind CSS', 'NativeWind', 'Axios', 'REST APIs'],
     metrics: [
-      { label: 'Status', value: 'Live' },
-      { label: 'Platform', value: 'Mobile & Web' },
-      { label: 'State', value: 'Redux Toolkit' },
-      { label: 'Website', value: 'divyabraj.com' }
+      { label: 'Status', value: 'Live Production' },
+      { label: 'Domain', value: 'divyabraj.com' },
+      { label: 'Architecture', value: 'Web & Mobile' },
+      { label: 'State Mgmt', value: 'Redux Toolkit' }
     ],
     features: [
-      'Built a live dual-platform platform (React Native mobile app and React.js web portal) for Braj tourism.',
-      'Created cohesive, responsive interfaces using NativeWind and Tailwind CSS with centralized state management.',
-      'Added temple darshan schedules, panchang calendar, and local pilgrimage route details.',
-      'Integrated REST APIs with Axios for smooth data fetching and error handling.'
+      'Live production web application deployed at divyabraj.com serving real regional visitors.',
+      'Responsive, accessible UI built with Tailwind CSS and cross-platform component architecture.',
+      'Real-time temple darshan timings, festival calendars, and interactive pilgrimage guidance.',
+      'Optimized REST API integration with Axios for fast caching, error resilience, and fast load times.'
     ],
     demoLink: LIVE_WEBSITE_URL,
     githubLink: GITHUB_URL
   },
   {
     id: 'managemy-moves',
-    title: 'ManageMyMoves (MMM) — Survey App',
+    title: 'MMM Mobile Application (ManageMyMoves)',
     category: 'Mobile Apps',
     featured: true,
     tier: 'flagship',
-    badge: 'REACT NATIVE',
-    tagline: 'Offline-first survey and room inventory tracking mobile app with Drawer/Stack navigation and automated volume (ft³) calculations.',
+    badge: 'MOBILE APP • REACT NATIVE',
+    tagline: 'Offline-first relocation survey mobile app built with React Native & TypeScript, featuring automated cubic feet volume calculations and AsyncStorage caching.',
     emoji: '📱',
     image: '/images/projects/managemy-moves.jpg',
-    description: 'A mobile app built with React Native, TypeScript, and Redux Toolkit for relocation surveys. Features Drawer and Stack navigation, local data storage using AsyncStorage, and automatic volume calculations (in cubic feet) as survey items are added.',
+    description: 'A production-grade mobile application engineered with React Native, TypeScript, and Redux Toolkit. Built for move coordinators and survey teams to catalog room inventories, calculate cubic feet (ft³) volumes on-the-fly, and persist data offline via AsyncStorage.',
     techStack: ['React Native', 'TypeScript', 'Redux Toolkit', 'AsyncStorage', 'React Navigation', 'NativeWind', 'Axios'],
     metrics: [
-      { label: 'Type', value: 'Mobile App' },
-      { label: 'Storage', value: 'Offline-First' },
+      { label: 'Platform', value: 'iOS & Android' },
+      { label: 'Architecture', value: 'Offline-First' },
       { label: 'Navigation', value: 'Drawer + Stack' },
-      { label: 'Feature', value: 'Volume Calc' }
+      { label: 'Computation', value: 'Live Volume (ft³)' }
     ],
     features: [
-      'Built an offline-first survey and room inventory tracking app with Drawer and Stack navigation.',
-      'Implemented automatic volume (ft³) calculation for household items across multiple rooms.',
-      'Used AsyncStorage to save survey data locally so the app works smoothly without an active internet connection.',
-      'Fixed a state-reset bug to ensure 100% data accuracy across user sessions.'
+      'Engineered an offline-first mobile survey workflow with smooth Drawer and Stack navigation.',
+      'Real-time calculation engine computing total cubic-feet volume dynamically per room and item.',
+      'Offline persistence using AsyncStorage ensuring field surveys are never lost during network drops.',
+      'Performance-tuned React Native rendering avoiding unnecessary component re-renders.'
     ],
     demoLink: null,
     githubLink: GITHUB_URL

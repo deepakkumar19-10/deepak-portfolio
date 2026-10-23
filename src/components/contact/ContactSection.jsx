@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { PERSONAL_INFO } from '../../data/portfolioData';
-import { Mail, Phone, MapPin, Send, MessageCircle, Copy, Check, Globe, ExternalLink, ArrowRight, Loader2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageCircle, Copy, Check, Globe, ExternalLink, ArrowRight, Loader2, Database } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../common/Icons';
+import { saveLeadToFirestore } from '../../services/firebase';
 
 export default function ContactSection({ onShowToast }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
     message: ''
   });
@@ -30,26 +32,38 @@ export default function ContactSection({ onShowToast }) {
   // Helper to format WhatsApp message
   const getWhatsAppUrl = () => {
     const text = encodeURIComponent(
-      `*New Portfolio Message for Deepak Kumar*\n\n` +
+      `*New Portfolio Lead for Deepak Kumar*\n\n` +
       `👤 *Name:* ${formData.name || 'Visitor'}\n` +
       `📧 *Email:* ${formData.email || 'Not provided'}\n` +
+      (formData.phone ? `📱 *Phone:* ${formData.phone}\n` : '') +
       (formData.subject ? `📌 *Subject:* ${formData.subject}\n` : '') +
       `💬 *Message:*\n${formData.message || 'Hi Deepak, I saw your portfolio and would like to connect.'}`
     );
     return `https://wa.me/${PERSONAL_INFO.whatsapp}?text=${text}`;
   };
 
-  // Send via WhatsApp
-  const handleSendWhatsAppOnly = (e) => {
+  // Send via WhatsApp Only
+  const handleSendWhatsAppOnly = async (e) => {
     if (e) e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       if (onShowToast) onShowToast('Please fill in Name, Email and Message first.');
       return;
     }
+
+    // 1. Save to Firebase Firestore
+    try {
+      await saveLeadToFirestore({
+        ...formData,
+        pageSource: 'Contact Section (WhatsApp Only)'
+      });
+    } catch (dbErr) {
+      console.warn('[Firebase Save Error]:', dbErr);
+    }
+
     window.open(getWhatsAppUrl(), '_blank');
     setSubmittedVia('whatsapp');
     setSubmitted(true);
-    if (onShowToast) onShowToast('Opening WhatsApp to send your message to Deepak...');
+    if (onShowToast) onShowToast('Saved to Firebase & opening WhatsApp for Deepak...');
   };
 
   // Send via Email (FormSubmit AJAX + mailto fallback)
@@ -61,6 +75,18 @@ export default function ContactSection({ onShowToast }) {
     }
 
     setIsSubmitting(true);
+
+    // 1. Save to Firebase Firestore
+    try {
+      await saveLeadToFirestore({
+        ...formData,
+        pageSource: 'Contact Section (Email Only)'
+      });
+    } catch (dbErr) {
+      console.warn('[Firebase Save Error]:', dbErr);
+    }
+
+    // 2. Dispatch Email
     try {
       await fetch(`https://formsubmit.co/ajax/${PERSONAL_INFO.email}`, {
         method: 'POST',
@@ -71,9 +97,10 @@ export default function ContactSection({ onShowToast }) {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          subject: formData.subject || `New Portfolio Message from ${formData.name}`,
+          phone: formData.phone || 'Not provided',
+          subject: formData.subject || `New Portfolio Lead from ${formData.name}`,
           message: formData.message,
-          _subject: `New Portfolio Message: ${formData.subject || formData.name}`,
+          _subject: `New Lead: ${formData.name} (${formData.subject || 'Portfolio Inquiry'})`,
           _template: 'table'
         })
       });
@@ -83,11 +110,11 @@ export default function ContactSection({ onShowToast }) {
       setIsSubmitting(false);
       setSubmittedVia('email');
       setSubmitted(true);
-      if (onShowToast) onShowToast(`Message sent to ${PERSONAL_INFO.email}!`);
+      if (onShowToast) onShowToast(`Inquiry stored & sent to ${PERSONAL_INFO.email}!`);
     }
   };
 
-  // Combined Submit: Sends to Email in background AND opens WhatsApp
+  // Combined Submit: Saves to Firebase Firestore + Sends Email + Opens WhatsApp
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
@@ -97,7 +124,17 @@ export default function ContactSection({ onShowToast }) {
 
     setIsSubmitting(true);
 
-    // 1. Send to Email in background via FormSubmit
+    // 1. Save record to Firebase Firestore
+    try {
+      await saveLeadToFirestore({
+        ...formData,
+        pageSource: 'Contact Section (Full Submit)'
+      });
+    } catch (dbErr) {
+      console.warn('[Firebase Save Error]:', dbErr);
+    }
+
+    // 2. Send to Email in background via FormSubmit
     try {
       await fetch(`https://formsubmit.co/ajax/${PERSONAL_INFO.email}`, {
         method: 'POST',
@@ -108,9 +145,10 @@ export default function ContactSection({ onShowToast }) {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          subject: formData.subject || `New Portfolio Message from ${formData.name}`,
+          phone: formData.phone || 'Not provided',
+          subject: formData.subject || `New Portfolio Lead from ${formData.name}`,
           message: formData.message,
-          _subject: `Portfolio Message from ${formData.name} (${formData.email})`,
+          _subject: `Portfolio Lead: ${formData.name} (${formData.email})`,
           _template: 'table'
         })
       });
@@ -118,13 +156,13 @@ export default function ContactSection({ onShowToast }) {
       console.error('Email dispatch error:', err);
     }
 
-    // 2. Open WhatsApp in new tab so Deepak gets instant notification
+    // 3. Open WhatsApp in new tab so Deepak gets instant notification
     window.open(getWhatsAppUrl(), '_blank');
 
     setIsSubmitting(false);
     setSubmittedVia('both');
     setSubmitted(true);
-    if (onShowToast) onShowToast('Message sent to Deepak via WhatsApp & Email!');
+    if (onShowToast) onShowToast('Inquiry saved to Firebase & sent via WhatsApp & Email!');
   };
 
   return (
@@ -268,9 +306,15 @@ export default function ContactSection({ onShowToast }) {
           <div className="card" style={{ padding: '2.25rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
               <div>
-                <h3 style={{ fontSize: '1.4rem', fontWeight: 800 }}>Send a Direct Message</h3>
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
-                  Your message goes straight to Deepak's WhatsApp &amp; Email
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.3rem' }}>
+                  <h3 style={{ fontSize: '1.4rem', fontWeight: 800, margin: 0 }}>Send a Direct Message</h3>
+                  <span className="badge badge-tech" style={{ fontSize: '0.72rem', color: 'var(--primary)', borderColor: 'var(--primary-subtle)', gap: '0.3rem', padding: '0.2rem 0.5rem' }}>
+                    <Database size={11} />
+                    <span>Firebase Synced</span>
+                  </span>
+                </div>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                  Stored in Firestore &amp; alerted instantly to Deepak's WhatsApp &amp; Email
                 </p>
               </div>
               <button
@@ -290,9 +334,9 @@ export default function ContactSection({ onShowToast }) {
                 <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem auto' }}>
                   <Check size={32} />
                 </div>
-                <h4 style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '0.5rem' }}>Message Dispatched!</h4>
+                <h4 style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '0.5rem' }}>Inquiry Recorded &amp; Dispatched!</h4>
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: 1.6, maxWidth: '440px', margin: '0 auto 1.5rem auto' }}>
-                  Your message was routed directly to Deepak Kumar on{' '}
+                  Your lead details have been stored in <strong style={{ color: 'var(--accent-amber)' }}>Firebase Firestore</strong> and alerted directly to Deepak Kumar on{' '}
                   <strong style={{ color: 'var(--primary)' }}>WhatsApp (+91-9027687004)</strong> and{' '}
                   <strong style={{ color: 'var(--accent-cyan)' }}>Email (deepakkumar19152002@gmail.com)</strong>.
                 </p>
@@ -310,7 +354,7 @@ export default function ContactSection({ onShowToast }) {
                     type="button"
                     onClick={() => {
                       setSubmitted(false);
-                      setFormData({ name: '', email: '', subject: '', message: '' });
+                      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
                     }}
                     className="btn btn-outline btn-sm"
                   >
@@ -344,6 +388,19 @@ export default function ContactSection({ onShowToast }) {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="e.g. recruiter@company.com"
+                    className="form-input"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="contact-phone">Phone / WhatsApp Number (Optional)</label>
+                  <input
+                    type="tel"
+                    id="contact-phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="e.g. +91 98765 43210"
                     className="form-input"
                   />
                 </div>

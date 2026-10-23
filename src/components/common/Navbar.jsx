@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ThemeToggle from './ThemeToggle';
-import { Menu, X, FileDown, Smartphone } from 'lucide-react';
+import { Menu, X, FileDown, Smartphone, Sparkles } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { GITHUB_URL, LINKEDIN_URL, RESUME_URL } from '../../data/portfolioData';
 
@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Why Hire Me', href: '#why-hire-me' },
   { label: 'Contact', href: '#contact' }
 ];
 
@@ -26,7 +27,7 @@ export default function Navbar() {
       setScrollProgress(Number(scroll));
 
       // ScrollSpy active link detection
-      const sections = ['about', 'skills', 'experience', 'projects', 'contact'];
+      const sections = ['about', 'skills', 'experience', 'projects', 'why-hire-me', 'contact'];
       const current = sections.find((sec) => {
         const el = document.getElementById(sec);
         if (el) {
@@ -86,6 +87,16 @@ export default function Navbar() {
 
           {/* RIGHT: Actions */}
           <div className="nav-actions">
+            {/* Glowing Hire Me CTA */}
+            <a
+              href="#why-hire-me"
+              className="btn btn-hire-me btn-sm nav-hire-btn"
+              title="Why Hire Deepak Kumar"
+            >
+              <Sparkles size={14} />
+              <span>Hire Me</span>
+            </a>
+
             <a
               href={GITHUB_URL}
               target="_blank"
@@ -148,6 +159,15 @@ export default function Navbar() {
                 </a>
               ))}
               <div style={{ paddingTop: '1rem', borderTop: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <a
+                  href="#why-hire-me"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="btn btn-hire-me btn-sm"
+                  style={{ width: '100%', justifyContent: 'center' }}
+                >
+                  <Sparkles size={15} />
+                  <span>Why Hire Me</span>
+                </a>
                 <a
                   href={RESUME_URL}
                   target="_blank"

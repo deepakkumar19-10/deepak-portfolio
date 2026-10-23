@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, ArrowRight, Smartphone, Globe, Layers } from 'lucide-react';
+import { ExternalLink, ArrowRight, Smartphone, Globe, Layers, Sparkles } from 'lucide-react';
 import { GithubIcon } from '../common/Icons';
 
 export default function ProjectCard({ project, onSelect }) {
@@ -23,7 +23,7 @@ export default function ProjectCard({ project, onSelect }) {
             className={`project-badge-tag ${
               project.badge.includes('FLAGSHIP') || project.badge.includes('LIVE')
                 ? 'project-badge-flagship'
-                : project.badge.includes('REACT NATIVE')
+                : project.badge.includes('MOBILE') || project.badge.includes('REACT NATIVE')
                 ? 'project-badge-native'
                 : project.badge.includes('REDUX')
                 ? 'project-badge-redux'
@@ -31,8 +31,25 @@ export default function ProjectCard({ project, onSelect }) {
             }`}
           >
             {isMobile && <Smartphone size={12} style={{ marginRight: '4px' }} />}
+            {isLive && !isMobile && <Globe size={12} style={{ marginRight: '4px' }} />}
             {project.badge}
           </span>
+        )}
+
+        {/* Live URL Pill on banner */}
+        {isLive && (
+          <a
+            href={project.demoLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="project-live-chip"
+            title="Open Live Website"
+          >
+            <span className="live-status-dot" />
+            <span>divyabraj.com</span>
+            <ExternalLink size={11} />
+          </a>
         )}
       </div>
 
@@ -76,7 +93,7 @@ export default function ProjectCard({ project, onSelect }) {
             onClick={() => onSelect(project)}
             className="btn btn-outline btn-sm"
           >
-            <span>Details</span>
+            <span>Case Study / Details</span>
             <ArrowRight size={14} />
           </button>
 
@@ -102,7 +119,7 @@ export default function ProjectCard({ project, onSelect }) {
                 title="Visit Live Application Website"
                 aria-label={`Visit live website for ${project.title}`}
               >
-                <span>Live Site</span>
+                <span>Live Demo</span>
                 <ExternalLink size={13} />
               </a>
             )}

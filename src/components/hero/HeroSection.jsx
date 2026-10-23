@@ -1,6 +1,6 @@
 import React from 'react';
 import { PERSONAL_INFO, STATS, GITHUB_URL, LINKEDIN_URL, LIVE_WEBSITE_URL, RESUME_URL } from '../../data/portfolioData';
-import { ArrowRight, FileDown, Globe, Zap } from 'lucide-react';
+import { ArrowRight, FileDown, Globe, Zap, Sparkles } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../common/Icons';
 
 export default function HeroSection({ onOpenPitch }) {
@@ -41,6 +41,11 @@ export default function HeroSection({ onOpenPitch }) {
 
             {/* Action Buttons */}
             <div className="hero-actions">
+              <a href="#why-hire-me" className="btn btn-hire-me btn-lg">
+                <Sparkles size={18} />
+                <span>Hire Me</span>
+              </a>
+
               <a href="#projects" className="btn btn-primary btn-lg">
                 <span>View Projects</span>
                 <ArrowRight size={18} />
@@ -114,7 +119,7 @@ export default function HeroSection({ onOpenPitch }) {
               </a>
             </div>
 
-            {/* Clean KPI Metrics Row */}
+            {/* Clean KPI Metrics Row — Minimal, No Truncated Subtext */}
             <div className="hero-stats-row">
               {STATS.map((stat, idx) => (
                 <div key={idx} className="stat-item">
@@ -122,7 +127,6 @@ export default function HeroSection({ onOpenPitch }) {
                     <span className="stat-badge">{stat.badge}</span>
                   </div>
                   <h4 className="stat-value">{stat.value}</h4>
-                  <p className="stat-label">{stat.label}</p>
                 </div>
               ))}
             </div>
